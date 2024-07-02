@@ -5,15 +5,15 @@ Welcome to Reach Out, your go-to platform for all things blogging! Easily create
 ## Screenshots
 
 ### Homepage
-![Homepage](public\images\homepage.png)
+![Homepage](public/images/homepage.png)
 Discover the world of blogging with this platform. Easily create, share, explore captivating blog posts, and engage with a community of passionate writers and readers. Start your blogging journey today!
 
 ### About Page
-![About Page](public\images\about.png)
+![About Page](public/images/about.png)
 Welcome to Reach Out, your go-to platform for all things blogging! Whether you're an aspiring writer, a seasoned blogger, or simply someone who loves to read and share ideas, Reach Out is designed to cater to your needs.
 
 ### Blogs Page
-![Blogs Page](public\images\blogs.png)
+![Blogs Page](public/images/blogs.png)
 Explore a variety of blog posts on Reach Out. From backgrounds to website logos and more, dive into the diverse content created by our community.
 
 ## Features
@@ -82,6 +82,6 @@ Distributed under the MIT License. See LICENSE for more information.
 
 ## Contact
 
-Harry Macharia Muriithi @hharryjjack@gmail.com
+Harry Macharia Muriithi hharryjjack@gmail.com
 
 Project Link: https://github.com/jjacksonhharry/REACH-OUT-BLOGGING-PLATFORM
