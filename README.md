@@ -5,15 +5,15 @@ Welcome to Reach Out, your go-to platform for all things blogging! Easily create
 ## Screenshots
 
 ### Homepage
-![Homepage](images\homepage.png)
+![Homepage](public\images\homepage.png)
 Discover the world of blogging with this platform. Easily create, share, explore captivating blog posts, and engage with a community of passionate writers and readers. Start your blogging journey today!
 
 ### About Page
-![About Page](images\about.png)
+![About Page](public\images\about.png)
 Welcome to Reach Out, your go-to platform for all things blogging! Whether you're an aspiring writer, a seasoned blogger, or simply someone who loves to read and share ideas, Reach Out is designed to cater to your needs.
 
 ### Blogs Page
-![Blogs Page](images\blogs.png)
+![Blogs Page](public\images\blogs.png)
 Explore a variety of blog posts on Reach Out. From backgrounds to website logos and more, dive into the diverse content created by our community.
 
 ## Features
@@ -62,9 +62,9 @@ To get a local copy up and running, follow these simple steps:
 
 3. For authenticated users, additional features like editing and deleting blogs are available.
 
-# Contributing
+## Contributing
 
-## Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are greatly appreciated.
+### Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are greatly appreciated.
 
 - Fork the Project
 
@@ -76,11 +76,11 @@ To get a local copy up and running, follow these simple steps:
 
 - Open a Pull Request
 
-# License
+## License
 
 Distributed under the MIT License. See LICENSE for more information.
 
-# Contact
+## Contact
 
 Harry Macharia Muriithi @hharryjjack@gmail.com
 
