@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="nav.css">
+  <link rel="stylesheet" href="blogs.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+  <nav>
+    <div class="wrapper">
+      <div class="logo"><a href="index.html">Reach Out</a></div>
+      <input type="radio" name="slider" id="menu-btn">
+      <input type="radio" name="slider" id="close-btn">
+      <ul class="nav-links">
+        <label for="close-btn" class="btn close-btn"><i class="fas fa-times"></i></label>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="blogs.html">Blogs</a></li>
+        <li><a href="#">Feedback</a></li>
+      </ul>
+      <label for="menu-btn" class="btn menu-btn"><i class="fas fa-bars"></i></label>
+    </div>
+  </nav>
+
+  <div class="band" id="blogContainer"></div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', async function() {
+      const blogContainer = document.getElementById('blogContainer');
+
+      try {
+        const response = await fetch('http://localhost:3000/api/blogs', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+
+        if (!response.ok) {
+          throw new Error('Error fetching blogs');
+        }
+
+        const blogs = await response.json();
+
+        if (blogs.length === 0) {
+          blogContainer.innerHTML = '<p>No blogs found.</p>';
+        } else {
+          // Sort blogs by createdAt date in descending order
+          blogs.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+          blogs.forEach(blog => {
+            const blogCard = document.createElement('div');
+            blogCard.classList.add('card');
+
+            blogCard.innerHTML = `
+              <a href="viewblogs.html?id=${blog._id}" class="blog-link">
+                <div class="thumb" style="background-image: url(/uploads/${blog.image});"></div>
+                <article>
+                  <h1>${blog.title}</h1>
+                  <p>${blog.content.substring(0, 100)}...</p>
+                  <span>${new Date(blog.createdAt).toLocaleDateString()}</span>
+                  <p>By: ${blog.user && blog.user.username ? blog.user.username : 'Unidentified'}</p>
+                </article>
+              </a>
+            `;
+
+            blogContainer.appendChild(blogCard); // append child to sort blogs already sorted by date.
+          });
+        }
+      } catch (error) {
+        console.error('Error fetching blogs:', error);
+        blogContainer.innerHTML = '<p>Error fetching blogs. Please try again later.</p>';
+      }
+    });
+  </script>
+</body>
+</html>

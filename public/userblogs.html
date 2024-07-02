@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="nav.css">
+  <link rel="stylesheet" href="userblogs.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+  <nav>
+    <div class="wrapper">
+      <div class="logo"><a href="home.html">Reach Out</a></div>
+      <input type="radio" name="slider" id="menu-btn">
+      <input type="radio" name="slider" id="close-btn">
+      <ul class="nav-links">
+        <label for="close-btn" class="btn close-btn"><i class="fas fa-times"></i></label>
+        <li><a href="home.html">Home</a></li>
+        <li><a href="blog.html">Write</a></li>
+        <li><a href="userblogs.html">Blogs</a></li>
+        <li><a href="#" id="logout">Logout</a></li>
+      </ul>
+      <label for="menu-btn" class="btn menu-btn"><i class="fas fa-bars"></i></label>
+    </div>
+  </nav>
+  
+  <div id="blogContainer" class="container"></div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', async function() {
+      const blogContainer = document.getElementById('blogContainer');
+
+      try {
+          const token = localStorage.getItem('token');
+          const response = await fetch('http://localhost:3000/api/user/blogs', {
+              method: 'GET',
+              headers: {
+                  'Authorization': `Bearer ${token}`
+              }
+          });
+
+          if (!response.ok) {
+              throw new Error('Error fetching user blogs');
+          }
+
+          const blogs = await response.json();
+
+          if (blogs.length === 0) {
+              blogContainer.innerHTML = '<p>No blogs found.</p>';
+          } else {
+              // Sort blogs by createdAt date in descending order
+              blogs.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+              blogs.forEach(blog => {
+                  const blogCard = document.createElement('div');
+                  blogCard.classList.add('card');
+                  blogCard.dataset.blogId = blog._id;
+
+                  blogCard.innerHTML = `
+                      <img src="/uploads/${blog.image}" class="card__image" alt="Blog Image" />
+                      <div class="card__content">
+                          <span class="card__date">${new Date(blog.createdAt).toLocaleDateString()}</span>
+                          <span class="card__title">${blog.title}</span>
+                      </div>
+                  `;
+
+                  blogCard.addEventListener('click', () => {
+                      window.location.href = `editblog.html?id=${blog._id}`;
+                  });
+
+                  blogContainer.appendChild(blogCard);
+              });
+          }
+      } catch (error) {
+          console.error('Error fetching blogs:', error);
+          blogContainer.innerHTML = '<p>Error fetching blogs. Please try again later.</p>';
+      }
+    });
+  </script>
+
+  <script src="logout.js"></script>
+</body>
+</html>

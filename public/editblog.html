@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="nav.css">
+  <link rel="stylesheet" href="editblog.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+  <nav>
+    <div class="wrapper">
+      <div class="logo"><a href="#">Logo</a></div>
+      <input type="radio" name="slider" id="menu-btn">
+      <input type="radio" name="slider" id="close-btn">
+      <ul class="nav-links">
+        <label for="close-btn" class="btn close-btn"><i class="fas fa-times"></i></label>
+        <li><a href="home.html">Home</a></li>
+        <li><a href="blog.html">Write</a></li>
+        <li><a href="userblogs.html">Blogs</a></li>
+        <li><a href="#" id="logout">Logout</a></li>
+      </ul>
+      <label for="menu-btn" class="btn menu-btn"><i class="fas fa-bars"></i></label>
+    </div>
+  </nav>
+
+  <div id="blogDetail" class="container">
+      <!-- Blog details will be loaded here -->
+  </div>
+  <div class="button-container">
+    <button id="editButton">Edit Blog</button>
+    <button id="deleteButton">Delete Blog</button>
+  </div>
+
+  <script>
+      document.addEventListener('DOMContentLoaded', async function() {
+          const blogDetail = document.getElementById('blogDetail');
+          const editButton = document.getElementById('editButton');
+          const deleteButton = document.getElementById('deleteButton');
+
+          const params = new URLSearchParams(window.location.search);
+          const blogId = params.get('id');
+
+          if (!blogId) {
+              blogDetail.innerHTML = '<p>Invalid blog ID.</p>';
+              return;
+          }
+
+          try {
+              const response = await fetch(`http://localhost:3000/api/blogs/${blogId}`, {
+                  method: 'GET'
+              });
+
+              if (!response.ok) {
+                  throw new Error('Error fetching blog details');
+              }
+
+              const blog = await response.json();
+
+              blogDetail.innerHTML = `
+                  <h1>${blog.title}</h1>
+                  <img src="/uploads/${blog.image}" class="card__image" alt="Blog Image" />
+                  <div>${blog.content}</div>
+              `;
+
+              editButton.addEventListener('click', () => {
+                  window.location.href = `blog.html?id=${blog._id}`;
+              });
+
+              deleteButton.addEventListener('click', async () => {
+                  const confirmDelete = confirm('Are you sure you want to delete this blog?');
+                  if (confirmDelete) {
+                      try {
+                          console.log(`Sending delete request for blog ID: ${blogId}`);
+                          const token = localStorage.getItem('token');  // Get the token from local storage
+
+                          const deleteResponse = await fetch(`http://localhost:3000/api/user/blogs/${blogId}`, {
+                              method: 'DELETE',
+                              headers: {
+                                  'Authorization': `Bearer ${token}`
+                              }
+                          });
+
+                          if (!deleteResponse.ok) {
+                              const errorText = await deleteResponse.text();  // Retrieve text response
+                              console.error('Error response from server:', errorText);
+                              throw new Error('Error deleting blog');
+                          }
+
+                          alert('Blog deleted successfully');
+                          window.location.href = 'userblogs.html';
+                      } catch (error) {
+                          console.error('Error deleting blog:', error);
+                          alert('Failed to delete blog. Please try again.');
+                      }
+                  }
+              });
+          } catch (error) {
+              console.error('Error fetching blog details:', error);
+              blogDetail.innerHTML = `<p>Error fetching blog details. Please try again later. Error: ${error.message}</p>`;
+          }
+      });
+  </script>
+</body>
+</html>

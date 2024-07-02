@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="nav.css">
+  <link rel="stylesheet" href="blog.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+  <nav>
+    <div class="wrapper">
+      <div class="logo"><a href="home.html">Reach Out</a></div>
+      <input type="radio" name="slider" id="menu-btn">
+      <input type="radio" name="slider" id="close-btn">
+      <ul class="nav-links">
+        <label for="close-btn" class="btn close-btn"><i class="fas fa-times"></i></label>
+        <li><a href="home.html">Home</a></li>
+        <li><a href="blog.html">Write</a></li>
+        <li><a href="userblogs.html">Blogs</a></li>
+        <li><a href="#" id="logout">Logout</a></li>
+      </ul>
+      <label for="menu-btn" class="btn menu-btn"><i class="fas fa-bars"></i></label>
+    </div>
+  </nav>
+  
+  <form id="blogForm">
+    <div>
+        <label for="headerImage">Header Image</label>
+        <input type="file" id="headerImage" name="headerImage" accept="image/*">
+    </div>
+    <div id="imageContainer">
+        <img id="imagePreview" src="" alt="Image Preview" style="display: none;">
+    </div>
+    <div>
+        <input type="text" id="title" name="title" placeholder="Enter the title here" required style="font-family: 'Lora', serif;">
+    </div>
+    <div>
+        <textarea id="content" name="content" rows="5" placeholder="Write your content here" required style="font-family: 'Karla', sans-serif;"></textarea>
+    </div>
+    <div>
+        <input type="submit" value="Publish">
+    </div>
+  </form>
+  <p id="message"></p>
+  <div id="blogDisplay" style="display: none;">
+    <h2 id="blogTitle"></h2>
+    <p id="blogContentText"></p>
+    <img id="blogImage" src="" alt="Blog Image">
+  </div>
+
+  <script src="blogging.js"></script>
+
+  <script src="logout.js"></script>
+</body>
+</html>

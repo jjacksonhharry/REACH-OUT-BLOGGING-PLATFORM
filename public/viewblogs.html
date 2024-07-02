@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="nav.css">
+  <link rel="stylesheet" href="viewblogs.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+  <nav>
+    <div class="wrapper">
+      <div class="logo"><a href="#">Logo</a></div>
+      <input type="radio" name="slider" id="menu-btn">
+      <input type="radio" name="slider" id="close-btn">
+      <ul class="nav-links">
+        <label for="close-btn" class="btn close-btn"><i class="fas fa-times"></i></label>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="blogs.html">Blogs</a></li>
+        <li><a href="#">Feedback</a></li>
+      </ul>
+      <label for="menu-btn" class="btn menu-btn"><i class="fas fa-bars"></i></label>
+    </div>
+  </nav>
+  
+  <div id="blogDetail" class="container">
+        <!-- Blog details will be loaded here -->
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async function() {
+            const blogDetail = document.getElementById('blogDetail');
+
+            const params = new URLSearchParams(window.location.search);
+            const blogId = params.get('id');
+
+            if (!blogId) {
+                blogDetail.innerHTML = '<p>Invalid blog ID.</p>';
+                return;
+            }
+
+            try {
+                const response = await fetch(`http://localhost:3000/api/blogs/${blogId}`, {
+                    method: 'GET'
+                });
+
+                if (!response.ok) {
+                    throw new Error('Error fetching blog details');
+                }
+
+                const blog = await response.json();
+
+                blogDetail.innerHTML = `
+                    <h1>${blog.title}</h1>
+                    <img src="/uploads/${blog.image}" class="card__image" alt="Blog Image" />
+                    <div class="content">${blog.content}</div>
+                `;
+
+            } catch (error) {
+                console.error('Error fetching blog details:', error);
+                blogDetail.innerHTML = `<p>Error fetching blog details. Please try again later. Error: ${error.message}</p>`;
+            }
+        });
+    </script>
+</body>
+</html>

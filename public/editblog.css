@@ -1,0 +1,75 @@
+:root {
+  --font-family-primary: 'Playfair Display', serif;
+  --font-family-secondary: 'Roboto', sans-serif;
+
+  --font-size-title: 32px;
+  --font-size-content: 20px;
+  --line-height-content: 1.6;
+
+  --color-text: #222022;
+  --border-radius-primary: 32px; 
+}
+
+body {
+  width: 100vw;
+  padding: 0;
+  margin: 0;
+  font-family: var(--font-family-secondary);
+}
+
+.container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 50px;
+  box-sizing: border-box;
+}
+
+h1 {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-title);
+  color: var(--color-text);
+  margin-bottom: 20px;
+}
+
+img {
+  width: 100%;
+  border-radius: var(--border-radius-primary);
+  margin-bottom: 20px;
+}
+
+.card__image {
+  width: 100%;
+  height: 300px; /* Set a specific height */
+  object-fit: cover; /* This ensures the image covers the entire area without distortion */
+  border-radius: var(--border-radius-primary);
+  margin-bottom: 20px;
+}
+
+div {
+  font-size: var(--font-size-content);
+  line-height: var(--line-height-content);
+  color: var(--color-text);
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+button {
+  display: inline-block;
+  margin: 10px 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #e61ab9;
+  border: none;
+  border-radius: var(--border-radius-primary);
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #ea34c3;
+}
