@@ -85,3 +85,5 @@ Distributed under the MIT License. See LICENSE for more information.
 Harry Macharia Muriithi hharryjjack@gmail.com
 
 Project Link: https://github.com/jjacksonhharry/REACH-OUT-BLOGGING-PLATFORM
+
+Project Youtube Link: https://youtu.be/fha_DWCaWNE?si=ADS5YpKeOpqiD4FI
